@@ -1,0 +1,702 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>A Little Question for You 💖</title>
+
+    <style>
+        /* ===========================
+           GLOBAL STYLES
+        ============================ */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: linear-gradient(
+                135deg,
+                #ff9a9e 0%,
+                #fad0c4 35%,
+                #fbc2eb 70%,
+                #a18cd1 100%
+            );
+            position: relative;
+        }
+
+        /* ===========================
+           FLOATING HEART BACKGROUND
+        ============================ */
+
+        .heart {
+            position: absolute;
+            bottom: -50px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 25px;
+            pointer-events: none;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            15% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-120vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* ===========================
+           MAIN INVITATION CARD
+        ============================ */
+
+        .card {
+            position: relative;
+            z-index: 2;
+            width: min(92%, 450px);
+            padding: 38px 25px;
+            text-align: center;
+            border-radius: 30px;
+
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(15px);
+
+            border: 2px solid rgba(255, 255, 255, 0.8);
+
+            box-shadow:
+                0 20px 60px rgba(157, 61, 116, 0.22),
+                0 0 30px rgba(255, 255, 255, 0.35);
+
+            animation: appear 0.9s ease;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* ===========================
+           ROMANTIC GIF / EMOJI AREA
+        ============================ */
+
+        .love-icon {
+            font-size: 75px;
+            margin-bottom: 15px;
+            display: inline-block;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            25% {
+                transform: scale(1.12);
+            }
+
+            40% {
+                transform: scale(1);
+            }
+
+            60% {
+                transform: scale(1.08);
+            }
+        }
+
+        .tag {
+            display: inline-block;
+            background: #ffe3ef;
+            color: #e84393;
+            padding: 7px 16px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 18px;
+        }
+
+        h1 {
+            color: #d63384;
+            font-size: clamp(27px, 6vw, 35px);
+            line-height: 1.25;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            color: #777;
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .highlight {
+            color: #e84393;
+            font-weight: 700;
+        }
+
+        /* ===========================
+           DATE DETAILS
+        ============================ */
+
+        .date-box {
+            background: linear-gradient(135deg, #fff0f6, #f3e8ff);
+            border: 1px solid #f7c6e2;
+            border-radius: 18px;
+            padding: 17px;
+            margin-bottom: 28px;
+        }
+
+        .date-box p {
+            color: #80506b;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .date-box .date-title {
+            color: #d63384;
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        /* ===========================
+           BUTTONS
+        ============================ */
+
+        .button-area {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            min-height: 65px;
+            margin: 0 auto;
+        }
+
+        button {
+            border: none;
+            border-radius: 50px;
+            padding: 14px 28px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+            font-family: inherit;
+            touch-action: manipulation;
+        }
+
+        #yesButton {
+            color: white;
+            background: linear-gradient(135deg, #ff4b8b, #ff006e);
+            box-shadow: 0 8px 20px rgba(255, 0, 110, 0.28);
+            z-index: 3;
+        }
+
+        #yesButton:hover {
+            transform: translateY(-3px) scale(1.06);
+            box-shadow: 0 12px 25px rgba(255, 0, 110, 0.4);
+        }
+
+        #noButton {
+            color: #d63384;
+            background: #fff0f6;
+            border: 2px solid #ffc2dd;
+            box-shadow: 0 5px 15px rgba(214, 51, 132, 0.1);
+
+            position: relative;
+            z-index: 5;
+            white-space: nowrap;
+        }
+
+        #noButton:hover {
+            background: #ffe3ef;
+        }
+
+        .footer {
+            color: #b06b91;
+            font-size: 12px;
+            margin-top: 25px;
+        }
+
+        /* ===========================
+           SUCCESS SCREEN
+        ============================ */
+
+        #successScreen {
+            display: none;
+        }
+
+        #successScreen h1 {
+            color: #ff1681;
+        }
+
+        .success-icon {
+            font-size: 85px;
+            margin-bottom: 20px;
+            animation: celebration 1s infinite alternate;
+        }
+
+        @keyframes celebration {
+            from {
+                transform: rotate(-10deg) scale(1);
+            }
+
+            to {
+                transform: rotate(10deg) scale(1.12);
+            }
+        }
+
+        .success-message {
+            color: #80506b;
+            font-size: 16px;
+            line-height: 1.8;
+            margin: 20px 0;
+        }
+
+        .love-note {
+            padding: 18px;
+            background: #fff0f6;
+            border-radius: 18px;
+            color: #d63384;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .small-heart {
+            color: #ff1681;
+            font-size: 20px;
+        }
+
+        /* ===========================
+           CONFETTI
+        ============================ */
+
+        .confetti {
+            position: fixed;
+            top: -20px;
+            z-index: 10;
+            pointer-events: none;
+            animation: confettiFall linear forwards;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-20px) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* ===========================
+           MOBILE RESPONSIVENESS
+        ============================ */
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 30px 20px;
+                border-radius: 25px;
+            }
+
+            .love-icon {
+                font-size: 65px;
+            }
+
+            .subtitle {
+                font-size: 14px;
+            }
+
+            button {
+                padding: 13px 23px;
+                font-size: 14px;
+            }
+
+            .date-box {
+                padding: 14px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Floating background hearts -->
+    <div id="heartsContainer" aria-hidden="true"></div>
+
+    <!-- Main invitation card -->
+    <main class="card">
+
+        <!-- Invitation screen -->
+        <section id="invitationScreen">
+
+            <div class="love-icon">💌</div>
+
+            <div class="tag">A SPECIAL INVITATION 💗</div>
+
+            <h1>
+                Hey, Beautiful! 🥹💕
+            </h1>
+
+            <p class="subtitle">
+                I have something special to ask you...
+                <br>
+                Every moment with you is a little more magical.
+                <br>
+                So, my love, I was wondering...
+            </p>
+
+            <div class="date-box">
+                <p class="date-title">🌹 A Little Date With Me? 🌹</p>
+
+                <p>
+                    Just you and me, some good vibes,
+                    laughter, beautiful memories,
+                    and a little more love. 💕
+                </p>
+
+                <p>
+                    <strong>My favorite person = YOU ❤️</strong>
+                </p>
+            </div>
+
+            <h1 style="font-size: 24px; margin-bottom: 22px;">
+                Will you go on a date with me? 🥰
+            </h1>
+
+            <div class="button-area" id="buttonArea">
+
+                <button id="yesButton" type="button">
+                    YES! 💖
+                </button>
+
+                <button id="noButton" type="button">
+                    No 🙈
+                </button>
+
+            </div>
+
+            <p class="footer">
+                Made with 💗, especially for you.
+            </p>
+
+        </section>
+
+        <!-- Success screen -->
+        <section id="successScreen" aria-live="polite">
+
+            <div class="success-icon">🥹💖</div>
+
+            <div class="tag">BEST ANSWER EVER ✨</div>
+
+            <h1>
+                YAAAAAY!! 🎉💕
+            </h1>
+
+            <p class="success-message">
+                You just made me the happiest person ever! 🥰
+                <br><br>
+                I can't wait to spend some beautiful time with you,
+                laugh with you, look into your eyes, and make
+                memories we'll smile about forever.
+            </p>
+
+            <div class="love-note">
+                <span class="small-heart">♥</span>
+
+                <br>
+
+                Thank you for being my favorite person.
+                <br>
+                This date is going to be special because
+                <strong>it's with YOU!</strong>
+
+                <br><br>
+
+                I love you, sweetheart! 💋💗
+            </div>
+
+            <p class="footer">
+                Forever grateful to have you. 💕
+            </p>
+
+        </section>
+
+    </main>
+
+    <script>
+        /* ===========================
+           FLOATING HEARTS
+        ============================ */
+
+        const heartsContainer =
+            document.getElementById("heartsContainer");
+
+        const heartSymbols = [
+            "💗", "💕", "💖", "💘", "💝", "❤️", "🌸", "✨"
+        ];
+
+        function createFloatingHeart() {
+            const heart = document.createElement("span");
+
+            heart.classList.add("heart");
+
+            heart.textContent =
+                heartSymbols[
+                    Math.floor(Math.random() * heartSymbols.length)
+                ];
+
+            heart.style.left = Math.random() * 100 + "vw";
+
+            heart.style.fontSize =
+                (15 + Math.random() * 25) + "px";
+
+            heart.style.animationDuration =
+                (5 + Math.random() * 7) + "s";
+
+            heartsContainer.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 13000);
+        }
+
+        // Create hearts continuously.
+        setInterval(createFloatingHeart, 350);
+
+        // Add a few hearts immediately.
+        for (let i = 0; i < 12; i++) {
+            setTimeout(createFloatingHeart, i * 150);
+        }
+
+
+        /* ===========================
+           RUNAWAY NO BUTTON
+        ============================ */
+
+        const noButton = document.getElementById("noButton");
+        const yesButton = document.getElementById("yesButton");
+        const buttonArea = document.getElementById("buttonArea");
+
+        let escapeCount = 0;
+
+        function moveNoButton(event) {
+            if (event) {
+                event.preventDefault();
+            }
+
+            // Once the button starts running, position it
+            // relative to the whole browser window.
+            if (getComputedStyle(noButton).position !== "fixed") {
+                noButton.style.position = "fixed";
+            }
+
+            const buttonRect = noButton.getBoundingClientRect();
+
+            const padding = 12;
+
+            const maxX = Math.max(
+                padding,
+                window.innerWidth - buttonRect.width - padding
+            );
+
+            const maxY = Math.max(
+                padding,
+                window.innerHeight - buttonRect.height - padding
+            );
+
+            // Choose a random location within the viewport.
+            let newX = padding + Math.random() * (maxX - padding);
+            let newY = padding + Math.random() * (maxY - padding);
+
+            // Avoid leaving the button in almost the same place.
+            const currentX = buttonRect.left;
+            const currentY = buttonRect.top;
+
+            let attempts = 0;
+
+            while (
+                Math.abs(newX - currentX) < 120 &&
+                Math.abs(newY - currentY) < 80 &&
+                attempts < 15
+            ) {
+                newX = padding + Math.random() * (maxX - padding);
+                newY = padding + Math.random() * (maxY - padding);
+                attempts++;
+            }
+
+            noButton.style.left = newX + "px";
+            noButton.style.top = newY + "px";
+
+            escapeCount++;
+
+            // The button becomes increasingly cheeky.
+            const noMessages = [
+                "No 🙈",
+                "Hehe, try again! 😂",
+                "You missed! 💨",
+                "Catch me! 🏃‍♀️",
+                "Are you sure? 🥺",
+                "Pretty please? 💗",
+                "Not so fast! 😜",
+                "Hehehe! 💕"
+            ];
+
+            noButton.textContent =
+                noMessages[
+                    Math.min(escapeCount, noMessages.length - 1)
+                ];
+        }
+
+        // Desktop: escape when the pointer approaches.
+        noButton.addEventListener("pointerenter", moveNoButton);
+
+        // Mobile: escape when touched.
+        noButton.addEventListener("pointerdown", moveNoButton);
+
+        // Keyboard activation also moves the button.
+        noButton.addEventListener("focus", () => {
+            // Do not unexpectedly move the button just because
+            // a mouse user moves over it; pointerenter handles that.
+        });
+
+        noButton.addEventListener("click", moveNoButton);
+
+
+        /* ===========================
+           YES BUTTON: LOVE CELEBRATION
+        ============================ */
+
+        const invitationScreen =
+            document.getElementById("invitationScreen");
+
+        const successScreen =
+            document.getElementById("successScreen");
+
+        yesButton.addEventListener("click", function () {
+
+            // Display the celebration screen.
+            invitationScreen.style.display = "none";
+            successScreen.style.display = "block";
+
+            // Remove the runaway button from the page.
+            noButton.remove();
+
+            // Launch the celebration!
+            launchConfetti();
+
+        });
+
+
+        /* ===========================
+           HEARTS AND CONFETTI
+        ============================ */
+
+        function launchConfetti() {
+
+            const confettiSymbols = [
+                "💖", "💕", "💗", "❤️",
+                "💘", "💝", "✨", "🌸", "🎉", "🥰"
+            ];
+
+            for (let i = 0; i < 100; i++) {
+
+                setTimeout(() => {
+
+                    const piece = document.createElement("span");
+
+                    piece.classList.add("confetti");
+
+                    piece.textContent =
+                        confettiSymbols[
+                            Math.floor(
+                                Math.random() * confettiSymbols.length
+                            )
+                        ];
+
+                    piece.style.left = Math.random() * 100 + "vw";
+
+                    piece.style.fontSize =
+                        (15 + Math.random() * 25) + "px";
+
+                    piece.style.animationDuration =
+                        (2 + Math.random() * 3) + "s";
+
+                    document.body.appendChild(piece);
+
+                    setTimeout(() => {
+                        piece.remove();
+                    }, 5500);
+
+                }, i * 30);
+            }
+        }
+
+
+        /* ===========================
+           HANDLE WINDOW RESIZING
+        ============================ */
+
+        window.addEventListener("resize", () => {
+
+            // Keep the runaway button inside the visible screen.
+            if (noButton.isConnected &&
+                getComputedStyle(noButton).position === "fixed") {
+
+                const rect = noButton.getBoundingClientRect();
+
+                const maxX = window.innerWidth - rect.width - 12;
+                const maxY = window.innerHeight - rect.height - 12;
+
+                noButton.style.left =
+                    Math.max(12, Math.min(rect.left, maxX)) + "px";
+
+                noButton.style.top =
+                    Math.max(12, Math.min(rect.top, maxY)) + "px";
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>
+```
